@@ -110,7 +110,6 @@ describe('App e2e', () => {
         phoneNumber: '18012345678',
       };
       it('应该修改成功', () => {
-        console.log(token, admin);
         return request(httpServer)
           .put(`/user/${admin.userId}`)
           .set('authorization', token)
