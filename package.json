@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "wedding",
+  "description": "This is a wedding application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CokeBeliever/wedding.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CokeBeliever/wedding/issues"
+  },
+  "homepage": "https://github.com/CokeBeliever/wedding#readme"
+}
