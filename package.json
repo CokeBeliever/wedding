@@ -1,5 +1,6 @@
 {
   "private": true,
+  "packageManager": "pnpm@7.3.0",
   "name": "wedding",
   "description": "This is a wedding application",
   "repository": {
@@ -11,5 +12,8 @@
   "bugs": {
     "url": "https://github.com/CokeBeliever/wedding/issues"
   },
-  "homepage": "https://github.com/CokeBeliever/wedding#readme"
+  "homepage": "https://github.com/CokeBeliever/wedding#readme",
+  "engines": {
+    "node": ">= 16"
+  }
 }
