@@ -22,3 +22,17 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model File {
+  fileId Int @id @default(autoincrement())
+
+  originalname String
+  size         Int
+  mimetype     String
+  filename     String
+  destination  String
+  path         String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

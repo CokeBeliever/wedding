@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { JwtGuard } from './auth/guard';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { JwtGuard } from './auth/guard';
     PrismaModule,
     AuthModule,
     UserModule,
+    FileModule,
   ],
   providers: [
     {
