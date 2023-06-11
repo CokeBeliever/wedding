@@ -32,6 +32,13 @@ model File {
   filename     String
   destination  String
   path         String @unique
+}
+
+model WeddingMessage {
+  widdingMessageId Int    @id @default(autoincrement())
+  weddingId        Int
+  userId           Int
+  content          String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

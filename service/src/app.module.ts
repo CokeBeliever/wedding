@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { MessageModule } from './message/message.module';
 import { JwtGuard } from './auth/guard';
 import { FileModule } from './file/file.module';
 
@@ -16,6 +17,7 @@ import { FileModule } from './file/file.module';
     AuthModule,
     UserModule,
     FileModule,
+    MessageModule,
   ],
   providers: [
     {
