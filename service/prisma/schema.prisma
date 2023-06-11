@@ -26,11 +26,68 @@ model User {
   phoneNumber String?
 
   /// 创建时间
-  createdAt      DateTime         @default(now())
+  createdAt DateTime @default(now())
   /// 更新时间
-  updatedAt      DateTime         @updatedAt
+  updatedAt DateTime @updatedAt
 
   weddingMessage WeddingMessage[]
+}
+
+/// 主题表
+model Theme {
+  /// 唯一标识
+  themeId Int @id @default(autoincrement())
+
+  /// 主题名称
+  name        String
+  /// 主题描述
+  description String
+  /// 主题内容
+  content     Json
+
+  /// 封面图文件唯一标识
+  coverImageId Int
+  coverImage   File @relation(fields: [coverImageId], references: [fileId])
+
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// 更新时间
+  updatedAt DateTime @updatedAt
+}
+
+/// 婚柬表
+model Wedding {
+  /// 唯一标识
+  weddingId Int @id @default(autoincrement())
+
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// 更新时间
+  updatedAt DateTime @updatedAt
+
+  weddingMessage WeddingMessage[]
+}
+
+/// 婚柬留言表
+model WeddingMessage {
+  /// 唯一标识
+  widdingMessageId Int @id @default(autoincrement())
+
+  /// 婚柬唯一标识
+  weddingId Int
+  wedding   Wedding @relation(fields: [weddingId], references: [weddingId])
+
+  /// 留言用户唯一标识
+  userId Int
+  user   User @relation(fields: [userId], references: [userId])
+
+  /// 留言内容
+  content String
+
+  /// 创建时间
+  createdAt DateTime @default(now())
+  /// 更新时间
+  updatedAt DateTime @updatedAt
 }
 
 /// 文件表
@@ -50,34 +107,11 @@ model File {
   destination  String
   /// 保存文件路径
   path         String @unique
-}
-
-/// 婚柬表
-model Wedding {
-  /// 唯一标识
-  weddingId      Int              @id @default(autoincrement())
-
-  weddingMessage WeddingMessage[]
-}
-
-/// 婚柬留言表
-model WeddingMessage {
-  /// 唯一标识
-  widdingMessageId Int @id @default(autoincrement())
-
-  /// 婚柬唯一标识
-  wedding   Wedding @relation(fields: [weddingId], references: [weddingId])
-  weddingId Int
-
-  /// 留言用户唯一标识
-  user   User @relation(fields: [userId], references: [userId])
-  userId Int
-
-  /// 留言内容
-  content String
 
   /// 创建时间
   createdAt DateTime @default(now())
   /// 更新时间
   updatedAt DateTime @updatedAt
+
+  Theme Theme[]
 }
