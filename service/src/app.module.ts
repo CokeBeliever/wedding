@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
 import { JwtGuard } from './auth/guard';
 import { FileModule } from './file/file.module';
+import { ThemeModule } from './theme/theme.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FileModule } from './file/file.module';
     UserModule,
     FileModule,
     MessageModule,
+    ThemeModule,
   ],
   providers: [
     {
