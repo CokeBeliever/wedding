@@ -10,36 +10,74 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// 用户表
 model User {
+  /// 唯一标识
   userId Int @id @default(autoincrement())
 
+  /// 电子邮箱
   email    String @unique
+  /// 密码
   password String
 
+  /// 用户名
   username    String?
+  /// 手机号码
   phoneNumber String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  /// 创建时间
+  createdAt      DateTime         @default(now())
+  /// 更新时间
+  updatedAt      DateTime         @updatedAt
+
+  weddingMessage WeddingMessage[]
 }
 
+/// 文件表
 model File {
+  /// 唯一标识
   fileId Int @id @default(autoincrement())
 
+  /// 上传文件名称
   originalname String
+  /// 上传文件大小
   size         Int
+  /// 上传文件类型
   mimetype     String
+  /// 保存文件名称
   filename     String
+  /// 保存文件目录
   destination  String
+  /// 保存文件路径
   path         String @unique
 }
 
-model WeddingMessage {
-  widdingMessageId Int    @id @default(autoincrement())
-  weddingId        Int
-  userId           Int
-  content          String
+/// 婚柬表
+model Wedding {
+  /// 唯一标识
+  weddingId      Int              @id @default(autoincrement())
 
+  weddingMessage WeddingMessage[]
+}
+
+/// 婚柬留言表
+model WeddingMessage {
+  /// 唯一标识
+  widdingMessageId Int @id @default(autoincrement())
+
+  /// 婚柬唯一标识
+  wedding   Wedding @relation(fields: [weddingId], references: [weddingId])
+  weddingId Int
+
+  /// 留言用户唯一标识
+  user   User @relation(fields: [userId], references: [userId])
+  userId Int
+
+  /// 留言内容
+  content String
+
+  /// 创建时间
   createdAt DateTime @default(now())
+  /// 更新时间
   updatedAt DateTime @updatedAt
 }
