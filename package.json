@@ -3,6 +3,16 @@
   "packageManager": "pnpm@7.3.0",
   "name": "wedding",
   "description": "This is a wedding application",
+  "scripts": {
+    "cz": "czg",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "cz-git": "^1.6.1",
+    "czg": "^1.6.1",
+    "husky": "^8.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CokeBeliever/wedding.git"
@@ -13,6 +23,11 @@
     "url": "https://github.com/CokeBeliever/wedding/issues"
   },
   "homepage": "https://github.com/CokeBeliever/wedding#readme",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
   "engines": {
     "node": ">= 16"
   }
