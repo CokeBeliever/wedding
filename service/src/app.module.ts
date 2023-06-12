@@ -4,7 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { WeddingMessageModule } from './message/wedding-message.module';
+import { WeddingMessageModule } from './wedding-message/wedding-message.module';
 import { JwtGuard } from './auth/guard';
 import { FileModule } from './file/file.module';
 import { ThemeModule } from './theme/theme.module';
