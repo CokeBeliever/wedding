@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 
-export class CreateMessageDto {
+export class CreateWeddingMessageDto {
   @IsNumber()
   weddingId: number;
 
