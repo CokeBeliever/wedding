@@ -17,13 +17,13 @@ export class WeddingMessageController {
 
   @HttpCode(HttpStatus.OK)
   @Post()
-  createMessage(@Body() dto: CreateWeddingMessageDto) {
+  create(@Body() dto: CreateWeddingMessageDto) {
     return this.weddingMessageService.create(dto);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('by-wedding-id/:weddingId')
-  getAllMessageByWeddingId(@Param('weddingId', ParseIntPipe) weddingId: number) {
+  getByWeddingId(@Param('weddingId', ParseIntPipe) weddingId: number) {
     return this.weddingMessageService.getByWeddingId(weddingId);
   }
 }
