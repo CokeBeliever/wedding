@@ -17,7 +17,18 @@
     "type": "git",
     "url": "git+https://github.com/CokeBeliever/wedding.git"
   },
-  "author": "",
+  "contributors": [
+    {
+      "name": "CokeBeliever",
+      "email": "CokeBeliever@163.com",
+      "url": "https://github.com/CokeBeliever"
+    },
+    {
+      "name": "XiaoPiHong",
+      "email": "xiaopihong0325@qq.com",
+      "url": "https://github.com/XiaoPiHong"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CokeBeliever/wedding/issues"
