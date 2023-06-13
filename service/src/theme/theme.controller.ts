@@ -12,16 +12,19 @@ import {
 } from '@nestjs/common';
 import { ThemeService } from './theme.service';
 import { CreateThemeDto, EditThemeDto } from './dto';
+import { Public } from 'src/auth/decorator';
 
 @Controller('theme')
 export class ThemeController {
   constructor(private themeService: ThemeService) {}
 
+  @Public()
   @Get(':id')
   getById(@Param('id', ParseIntPipe) id: number) {
     return this.themeService.getById(id);
   }
 
+  @Public()
   @Get()
   getAll() {
     return this.themeService.getAll();
