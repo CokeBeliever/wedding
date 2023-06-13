@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { ThemeService } from './theme.service';
 import { CreateThemeDto, EditThemeDto } from './dto';
-import { Public } from 'src/auth/decorator';
 
 @Controller('theme')
 export class ThemeController {
@@ -23,7 +22,6 @@ export class ThemeController {
     return this.themeService.getById(id);
   }
 
-  @Public()
   @Get()
   getAll() {
     return this.themeService.getAll();
