@@ -3,14 +3,14 @@
     <radio-group @change="onChangeProtocolRadioGroup">
       <radio value="1" color="green" style="transform: scale(0.6)" />
     </radio-group>
-    <Text>本人已阅读并同意</Text>
+    <text>本人已阅读并同意</text>
     <navigator
       class="login-protocol__nav"
       url="/pages/user-protocol/index"
     >
-      <Text>《用户协议》</Text>
+      <text>《用户协议》</text>
     </navigator>
-    <Text>和</Text>
+    <text>和</text>
     <navigator
       class="login-protocol__nav"
       url="/pages/privacy-protocol/index"
