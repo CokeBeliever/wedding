@@ -3,6 +3,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "@/*": ["./src/*"]
     },
