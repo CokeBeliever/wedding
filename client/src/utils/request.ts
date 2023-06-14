@@ -1,3 +1,5 @@
+import { tokenStorage } from "@/utils/storage";
+
 export enum MethodsEnum {
   GET = "GET",
   POST = "POST",
@@ -16,15 +18,19 @@ interface Options extends UniNamespace.RequestOptions {
 export default function request(options: Options) {
   options.url = `/api${options.url}`;
   options.header = Object.assign(
-    { "content-type": "application/json" },
+    {
+      "content-type": "application/json",
+      authorization: tokenStorage.get(),
+    },
     options.header
   );
 
   return uni.request(options).then((res) => {
-    if (res.statusCode === 200) {
-      return res.data;
+    const { statusCode } = res;
+    if (statusCode === 200 || statusCode === 201) {
+      return res.data as any;
     } else {
-      return Promise.reject();
+      return Promise.reject(res.data);
     }
   });
 }
