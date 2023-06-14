@@ -3,20 +3,24 @@ import { SignInDto, SignUpDto } from './dto';
 import { AuthService } from './auth.service';
 import { Public } from './decorator';
 
+@Public()
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Public()
   @Post('sign-up')
   signUp(@Body() dto: SignUpDto) {
     return this.authService.signUp(dto);
   }
 
-  @Public()
-  @HttpCode(HttpStatus.OK)
   @Post('sign-in')
+  @HttpCode(HttpStatus.OK)
   signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto);
+  }
+
+  @Post('sign-in-and-auto-sign-up')
+  signInAndAutoSignUp(@Body() dto: SignInDto) {
+    return this.authService.signInAndAutoSignUp(dto);
   }
 }

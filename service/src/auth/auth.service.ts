@@ -60,6 +60,16 @@ export class AuthService {
     }
   }
 
+  async signInAndAutoSignUp(dto: SignInDto) {
+    const user = await this.userService.getByEmail(dto.email);
+
+    if (!user) {
+      return this.signUp(dto);
+    } else {
+      return this.signIn(dto);
+    }
+  }
+
   async signToken(userId: number, email: string) {
     const payload = {
       sub: userId,
