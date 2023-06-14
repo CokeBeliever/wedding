@@ -6,14 +6,14 @@
     <Text>本人已阅读并同意</Text>
     <navigator
       class="login-protocol__nav"
-      url="navigate/navigate?title=navigate"
+      url="/pages/user-protocol/index"
     >
       <Text>《用户协议》</Text>
     </navigator>
     <Text>和</Text>
     <navigator
       class="login-protocol__nav"
-      url="navigate/navigate?title=navigate"
+      url="/pages/privacy-protocol/index"
     >
       《隐私协议》
     </navigator>

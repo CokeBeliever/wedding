@@ -36,6 +36,18 @@
       "style": {
         "navigationBarTitleText": "登陆-电子邮箱"
       }
+    },
+    {
+      "path": "pages/user-protocol/index",
+      "style": {
+        "navigationBarTitleText": "协议-用户协议"
+      }
+    },
+    {
+      "path": "pages/privacy-protocol/index",
+      "style": {
+        "navigationBarTitleText": "协议-隐私协议"
+      }
     }
   ],
   "globalStyle": {
