@@ -16,14 +16,21 @@
       v-model="user.password"
       placeholder="请输入密码"
     ></uni-easyinput>
-    <button class="login-email__login-btn" @click="">登陆</button>
-    <login-protocol class="login-email__login-protocol" v-model="protocolRadioGroupValue" />
+    <button class="login-email__login-btn" @click="onClickLoginBtn">
+      登陆
+    </button>
+    <login-protocol
+      class="login-email__login-protocol"
+      v-model="protocolRadioGroupValue"
+    />
   </view>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import LoginProtocol from "@/components/login-protocol/index.vue";
+import * as authApi from "@/apis/auth";
+import { useUserStore } from "@/stores";
 
 const user = reactive({
   email: "",
@@ -31,6 +38,32 @@ const user = reactive({
 });
 
 const protocolRadioGroupValue = ref("");
+
+const userStore = useUserStore();
+
+const onClickLoginBtn = () => {
+  if (!protocolRadioGroupValue.value) {
+    return uni.showToast({
+      title: "请确认并同意协议！",
+      icon: "none",
+    });
+  }
+
+  authApi
+    .postSignInAndAutoSignUp(user)
+    .then((data) => {
+      userStore.setUserInfo(data);
+      uni.reLaunch({
+        url: "/pages/home/index",
+      });
+    })
+    .catch((data) => {
+      uni.showToast({
+        title: data.message,
+        icon: "none",
+      });
+    });
+};
 </script>
 
 <style lang="scss" scoped>
