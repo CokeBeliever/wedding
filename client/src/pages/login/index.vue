@@ -15,6 +15,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import LoginProtocol from "@/components/login-protocol/index.vue";
+import { onBackPress } from "@dcloudio/uni-app";
+
+onBackPress(() => {
+  uni.reLaunch({ url: "/" });
+});
 
 const protocolRadioGroupValue = ref("");
 

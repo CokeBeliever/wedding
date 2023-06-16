@@ -53,9 +53,7 @@ const onClickLoginBtn = () => {
     .postSignInAndAutoSignUp(user)
     .then((data) => {
       userStore.setUserInfo(data);
-      uni.reLaunch({
-        url: "/pages/home/index",
-      });
+      uni.reLaunch({ url: "/" });
     })
     .catch((data) => {
       uni.showToast({
