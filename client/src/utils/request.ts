@@ -1,4 +1,5 @@
 import { tokenStorage } from "@/utils/storage";
+import * as configs from "@/configs";
 
 export enum MethodsEnum {
   GET = "GET",
@@ -16,7 +17,7 @@ interface Options extends UniNamespace.RequestOptions {
 }
 
 export default function request(options: Options) {
-  options.url = `/api${options.url}`;
+  options.url = `${configs.BASE_URL}${options.url}`;
   options.header = Object.assign(
     {
       "content-type": "application/json",
