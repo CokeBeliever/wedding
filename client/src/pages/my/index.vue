@@ -42,10 +42,9 @@
 import { tokenStorage } from "@/utils/storage";
 import { onShow } from "@dcloudio/uni-app";
 
-onShow(async () => {
+onShow(() => {
   if (!tokenStorage.get()) {
-    await uni.reLaunch({ url: "/" });
-    await uni.navigateTo({
+    uni.navigateTo({
       url: "/pages/login/index",
     });
   }
