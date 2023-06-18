@@ -31,7 +31,7 @@
       <!-- #endif -->
     </view>
     <!-- #ifdef APP-PLUS || MP-WEIXIN-->
-    <view class="my-container__logout">
+    <view class="my-container__logout" @click="onClickLogout">
       <text>退出登录</text>
     </view>
     <!-- #endif -->
@@ -39,8 +39,9 @@
 </template>
 
 <script lang="ts" setup>
-import { tokenStorage } from "@/utils/storage";
 import { onShow } from "@dcloudio/uni-app";
+import { tokenStorage } from "@/utils/storage";
+import { useUserStore } from "@/stores";
 
 onShow(() => {
   if (!tokenStorage.get()) {
@@ -49,6 +50,15 @@ onShow(() => {
     });
   }
 });
+
+const userStore = useUserStore();
+
+const onClickLogout = () => {
+  userStore.removeUserInfo();
+  uni.reLaunch({
+    url: "/pages/home/index",
+  });
+};
 </script>
 
 <style lang="scss" scoped>

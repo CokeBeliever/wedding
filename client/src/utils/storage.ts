@@ -2,6 +2,7 @@ const createStorage = (key: string) => {
   return {
     get: () => uni.getStorageSync(key),
     set: (value) => uni.setStorageSync(key, value),
+    remove: () => uni.removeStorageSync(key),
   };
 };
 

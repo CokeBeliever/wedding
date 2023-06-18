@@ -14,5 +14,12 @@ export default defineStore(USER, () => {
     tokenStorage.set(tokenVal);
   };
 
-  return { user, token, setUserInfo };
+  const removeUserInfo = () => {
+    user.value = undefined;
+    token.value = "";
+    userStorage.remove();
+    tokenStorage.remove();
+  };
+
+  return { user, token, setUserInfo, removeUserInfo };
 });
