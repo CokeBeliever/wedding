@@ -10,20 +10,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Platform {
+  H5
+  WEI_XIN
+  APP
+}
+
 /// 用户表
 model User {
   /// 唯一标识
   userId Int @id @default(autoincrement())
 
-  /// 电子邮箱
-  email    String @unique
-  /// 密码
-  password String
-
+  /// 用户平台
+  platform    Platform @default(H5)
   /// 用户名
   username    String?
   /// 手机号码
   phoneNumber String?
+
+  /// H5/APP: 电子邮箱
+  email    String? @unique
+  /// H5/APP: 密码
+  password String?
+
+  /// 微信: 用户唯一标识
+  openid String? @unique
 
   /// 创建时间
   createdAt DateTime @default(now())
