@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserDto, EditUserDto } from './dto';
+import { CreateUserDto, CreateUserWeixinDto, EditUserDto } from './dto';
 
 @Injectable()
 export class UserService {
   constructor(private prismaService: PrismaService) {}
 
-  create(dto: CreateUserDto) {
+  create(dto: CreateUserDto | CreateUserWeixinDto) {
     return this.prismaService.user.create({
       data: dto,
     });
@@ -16,6 +16,14 @@ export class UserService {
     return this.prismaService.user.findUnique({
       where: {
         email,
+      },
+    });
+  }
+
+  getByOpenid(openid: string) {
+    return this.prismaService.user.findUnique({
+      where: {
+        openid,
       },
     });
   }
