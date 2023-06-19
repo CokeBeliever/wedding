@@ -16,6 +16,14 @@ export const postAuthSignIn = (data) => {
   });
 };
 
+export const postAuthSignInWeixin = (data) => {
+  return request({
+    url: "/auth/sign-in-weixin",
+    method: MethodsEnum.POST,
+    data,
+  });
+};
+
 export const postSignInAndAutoSignUp = (data) => {
   return request({
     url: "/auth/sign-in-and-auto-sign-up",

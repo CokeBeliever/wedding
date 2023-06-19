@@ -16,6 +16,8 @@
 import { ref } from "vue";
 import LoginProtocol from "@/components/login-protocol/index.vue";
 import { useOnBackPress } from "@/composables";
+import * as authApi from "@/apis/auth";
+import { useUserStore } from "@/stores";
 
 useOnBackPress(() => {
   uni.reLaunch({ url: "/pages/home/index" });
@@ -30,8 +32,18 @@ const onClickWeixinLoginBtn = () => {
       title: "请确认并同意协议！",
       icon: "none",
     });
+  } else {
+    uni
+      .login()
+      .then((res) => {
+        return authApi.postAuthSignInWeixin(res);
+      })
+      .then((res) => {
+        const userStore = useUserStore();
+        userStore.setUserInfo(res);
+        uni.reLaunch({ url: "/pages/home/index" });
+      });
   }
-  console.log("wx");
 };
 
 const onClickEmailLoginBtn = () => {
