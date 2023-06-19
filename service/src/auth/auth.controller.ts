@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { SignInDto, SignUpDto } from './dto';
+import { SignInDto, SignInWeixinDto, SignUpDto } from './dto';
 import { AuthService } from './auth.service';
 import { Public } from './decorator';
 
@@ -17,6 +17,12 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto);
+  }
+
+  @Post('sign-in-weixin')
+  @HttpCode(HttpStatus.OK)
+  signInWeixin(@Body() dto: SignInWeixinDto) {
+    return this.authService.signInWeixin(dto);
   }
 
   @Post('sign-in-and-auto-sign-up')

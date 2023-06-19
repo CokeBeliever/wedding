@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { JwtStrategy } from './strategy';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtStrategy } from './strategy';
     }),
     UserModule,
     PassportModule,
+    HttpModule,
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],

@@ -3,8 +3,11 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
-import { SignInDto, SignUpDto } from './dto';
+import { SignInDto, SignInWeixinDto, SignUpDto } from './dto';
 import { UserService } from 'src/user/user.service';
+import { HttpService } from '@nestjs/axios';
+import { Platform } from '@prisma/client';
+import { map, lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +15,7 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     private userService: UserService,
+    private httpService: HttpService,
   ) {}
 
   async signUp(dto: SignUpDto) {
@@ -27,7 +31,7 @@ export class AuthService {
 
       return {
         user,
-        token: await this.signToken(user.userId, user.email),
+        token: await this.signToken(user.userId, user.platform),
       };
     } catch (error) {
       if (
@@ -54,10 +58,38 @@ export class AuthService {
 
         return {
           user,
-          token: await this.signToken(user.userId, user.email),
+          token: await this.signToken(user.userId, user.platform),
         };
       }
     }
+  }
+
+  async signInWeixin(dto: SignInWeixinDto) {
+    const req = this.httpService
+      .get('https://api.weixin.qq.com/sns/jscode2session', {
+        params: {
+          appid: process.env.WEIXIN_APP_ID,
+          secret: process.env.WEIXIN_APP_SECRET,
+          js_code: dto.code,
+          grant_type: 'authorization_code',
+        },
+      })
+      .pipe(map((res) => res.data));
+
+    const { openid, session_key } = await lastValueFrom(req);
+
+    let user = await this.userService.getByOpenid(openid);
+    if (!user) {
+      user = await this.userService.create({
+        openid,
+        platform: Platform.WEI_XIN,
+      });
+    }
+
+    return {
+      user,
+      token: await this.signToken(user.userId, user.platform),
+    };
   }
 
   async signInAndAutoSignUp(dto: SignInDto) {
@@ -70,10 +102,10 @@ export class AuthService {
     }
   }
 
-  async signToken(userId: number, email: string) {
+  async signToken(userId: number, platform: string) {
     const payload = {
       sub: userId,
-      email,
+      platform,
     };
 
     const token = await this.jwtService.signAsync(payload, {
