@@ -1,23 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateThemeDto, EditThemeDto } from './dto';
+import { CreateThemeDto, UpdateThemeDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class ThemeService {
   constructor(private prismaService: PrismaService) {}
-
-  getById(themeId: number) {
-    return this.prismaService.theme.findUnique({
-      where: {
-        themeId,
-      },
-    });
-  }
-
-  getAll() {
-    return this.prismaService.theme.findMany();
-  }
 
   create(dto: CreateThemeDto) {
     return this.prismaService.theme.create({
@@ -25,20 +13,28 @@ export class ThemeService {
     });
   }
 
-  editById(themeId: number, dto: EditThemeDto) {
+  findAll() {
+    return this.prismaService.theme.findMany();
+  }
+
+  findOne(id: number) {
+    return this.prismaService.theme.findUnique({
+      where: { id },
+    });
+  }
+
+  update(id: number, dto: UpdateThemeDto) {
     return this.prismaService.theme.update({
-      where: {
-        themeId,
-      },
+      where: { id },
       data: dto,
     });
   }
 
-  async deleteById(themeId: number) {
+  async remove(id: number) {
     try {
       const data = await this.prismaService.theme.delete({
         where: {
-          themeId,
+          id,
         },
       });
 
