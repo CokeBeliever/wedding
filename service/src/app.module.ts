@@ -8,6 +8,7 @@ import { WeddingMessageModule } from './wedding-message/wedding-message.module';
 import { JwtGuard } from './auth/guard';
 import { FileModule } from './file/file.module';
 import { ThemeModule } from './theme/theme.module';
+import { WeddingModule } from './wedding/wedding.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ThemeModule } from './theme/theme.module';
     FileModule,
     WeddingMessageModule,
     ThemeModule,
+    WeddingModule,
   ],
   providers: [
     {
