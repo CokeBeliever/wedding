@@ -38,7 +38,7 @@ export class WeddingMessageController {
     status: 200,
     type: [WeddingMessageDto],
   })
-  getByWeddingId(@Param('weddingId', ParseIntPipe) weddingId: number) {
-    return this.weddingMessageService.getByWeddingId(weddingId);
+  findOneByWeddingId(@Param('weddingId', ParseIntPipe) weddingId: number) {
+    return this.weddingMessageService.findOneByWeddingId(weddingId);
   }
 }

@@ -12,10 +12,10 @@ import { map, lastValueFrom } from 'rxjs';
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
-    private configService: ConfigService,
-    private userService: UserService,
-    private httpService: HttpService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+    private readonly userService: UserService,
+    private readonly httpService: HttpService,
   ) {}
 
   async signUp(dto: SignUpDto) {
@@ -27,11 +27,9 @@ export class AuthService {
         password: hash,
       });
 
-      delete user.password;
-
       return {
         user,
-        token: await this.signToken(user.userId, user.platform),
+        token: await this.signToken(user.id, user.platform),
       };
     } catch (error) {
       if (
@@ -45,7 +43,7 @@ export class AuthService {
   }
 
   async signIn(dto: SignInDto) {
-    const user = await this.userService.getByEmail(dto.email);
+    const user = await this.userService.findOneByEmail(dto.email);
 
     if (!user) {
       throw new ForbiddenException('凭证不正确');
@@ -58,7 +56,7 @@ export class AuthService {
 
         return {
           user,
-          token: await this.signToken(user.userId, user.platform),
+          token: await this.signToken(user.id, user.platform),
         };
       }
     }
@@ -78,7 +76,7 @@ export class AuthService {
 
     const { openid, session_key } = await lastValueFrom(req);
 
-    let user = await this.userService.getByOpenid(openid);
+    let user = await this.userService.findOneByOpenid(openid);
     if (!user) {
       user = await this.userService.create({
         openid,
@@ -88,12 +86,12 @@ export class AuthService {
 
     return {
       user,
-      token: await this.signToken(user.userId, user.platform),
+      token: await this.signToken(user.id, user.platform),
     };
   }
 
   async signInAndAutoSignUp(dto: SignInDto) {
-    const user = await this.userService.getByEmail(dto.email);
+    const user = await this.userService.findOneByEmail(dto.email);
 
     if (!user) {
       return this.signUp(dto);
@@ -102,9 +100,9 @@ export class AuthService {
     }
   }
 
-  async signToken(userId: number, platform: string) {
+  async signToken(id: number, platform: string) {
     const payload = {
-      sub: userId,
+      sub: id,
       platform,
     };
 

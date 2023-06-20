@@ -12,7 +12,7 @@ export class WeddingMessageService {
     });
   }
 
-  getByWeddingId(weddingId: number) {
+  findOneByWeddingId(weddingId: number) {
     return this.prismaService.weddingMessage.findMany({
       where: {
         weddingId,

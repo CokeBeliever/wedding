@@ -5,7 +5,7 @@ import { AppModule } from 'src/app.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignUpDto } from 'src/auth/dto';
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from './utils/constants';
-import { EditUserDto } from 'src/user/dto';
+import { UpdateUserDto } from 'src/user/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -104,14 +104,14 @@ describe('App e2e', () => {
   });
 
   describe('User Controller', () => {
-    describe('editById', () => {
-      const dto: EditUserDto = {
+    describe('update', () => {
+      const dto: UpdateUserDto = {
         username: 'admin',
         phoneNumber: '18012345678',
       };
       it('应该修改成功', () => {
         return request(httpServer)
-          .put(`/user/${admin.userId}`)
+          .patch(`/user/${admin.id}`)
           .set('authorization', token)
           .send(dto)
           .expect(200)
