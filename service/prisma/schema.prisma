@@ -42,6 +42,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   weddingMessage WeddingMessage[]
+  Wedding        Wedding[]
 }
 
 /// 主题表
@@ -64,12 +65,24 @@ model Theme {
   createdAt DateTime @default(now())
   /// 更新时间
   updatedAt DateTime @updatedAt
+
+  Wedding Wedding[]
 }
 
 /// 婚柬表
 model Wedding {
   /// 唯一标识
   weddingId Int @id @default(autoincrement())
+
+  /// 主题唯一标识
+  themeId   Int
+  theme     Theme @relation(fields: [themeId], references: [themeId])
+  /// 主题数据
+  themeData Json
+
+  /// 创建用户唯一标识
+  userId Int
+  user   User @relation(fields: [userId], references: [userId])
 
   /// 创建时间
   createdAt DateTime @default(now())
